@@ -30,7 +30,16 @@ public class DefaultEventManager implements EventManager
             return;
         }
 
-        sendEventTo(event, calculateListeners(event.getClass()));
+        // Send events to listeners of the class and all super parents
+        Boolean superClasses = true; 
+        Class currentClass = event.getClass();
+        while(!currentClass .equals(Object.class))
+        {
+        	sendEventTo(event, calculateListeners(currentClass));
+        	currentClass = currentClass.getSuperclass();
+        	
+        }
+        
     }
 
     private Collection calculateListeners(Class eventClass)
