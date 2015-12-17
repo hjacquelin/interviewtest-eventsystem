@@ -121,4 +121,23 @@ public class DefaultEventManagerTest
 		eventManager.publishEvent(new SubEvent(this));
 		assertFalse(eventListenerMock.isCalled());
 	}
+	
+	/**
+	 * Check if listeners without specified class listen to all events
+	 */
+	@Test
+	public void testListenerWithoutSpecifiedClass()
+	{
+		EventListenerMock eventListenerMock = new EventListenerMock(new Class[]{});
+		eventManager.registerListener("some.key", eventListenerMock);
+		eventManager.publishEvent(new SubEvent(this));
+		assertTrue(eventListenerMock.isCalled());
+		
+		eventListenerMock.resetCalled();
+		
+		eventManager.publishEvent(new SimpleEvent(this));
+		assertTrue(eventListenerMock.isCalled());
+		
+		
+	}
 }
