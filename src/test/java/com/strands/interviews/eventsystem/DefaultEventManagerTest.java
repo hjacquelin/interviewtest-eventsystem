@@ -109,4 +109,16 @@ public class DefaultEventManagerTest
         {
         }
     }
+    
+    /**
+     * Check if the listeners of super classes receive notification from a sub classes events
+     */
+	@Test
+	public void testSimpleEventListenersFromSubEvent() 
+	{
+		EventListenerMock eventListenerMock = new EventListenerMock(new Class[] { SimpleEvent.class });
+		eventManager.registerListener("some.key", eventListenerMock);
+		eventManager.publishEvent(new SubEvent(this));
+		assertFalse(eventListenerMock.isCalled());
+	}
 }
