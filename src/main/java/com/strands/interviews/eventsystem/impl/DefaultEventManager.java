@@ -31,7 +31,6 @@ public class DefaultEventManager implements EventManager
         }
 
         // Send events to listeners of the class and all super parents
-        Boolean superClasses = true; 
         Class currentClass = event.getClass();
         while(!currentClass .equals(Object.class))
         {
